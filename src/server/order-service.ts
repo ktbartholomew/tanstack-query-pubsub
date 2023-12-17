@@ -9,7 +9,7 @@ export type Item = {
 export type Order = {
   timestamp: Date;
   id: number;
-  destination: "dining-room" | "takeout";
+  destination: string;
   status: "received" | "fired" | "fulfilled" | "cancelled";
   items: Item[];
   notes: string[];
@@ -87,7 +87,7 @@ export class OrderService {
     while (true) {
       this.emitter.emit("order", this.generateOrder());
 
-      await new Promise((r) => setTimeout(r, Math.random() * 20000 + 10000));
+      await new Promise((r) => setTimeout(r, getRandomInt(2000, 6000)));
     }
   }
 
@@ -99,7 +99,7 @@ export class OrderService {
     const order: Order = {
       timestamp: new Date(),
       id: this.orderId++,
-      destination: "dining-room",
+      destination: ["dining room", "takeout", "drive thru"][getRandomInt(0, 2)],
       status: "received",
       items: [],
       notes: [],

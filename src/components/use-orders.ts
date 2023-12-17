@@ -36,6 +36,11 @@ export function useOrders() {
           setOrders((prev) => {
             const next = [...prev];
             next.push(event.detail.order as Order);
+
+            // Limit the array to 12 items
+            if (next.length > 12) {
+              return next.splice(-12);
+            }
             return next;
           });
         }

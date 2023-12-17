@@ -3,6 +3,8 @@
 import { OrderTicket } from "./order-ticket";
 import { useOrders } from "./use-orders";
 
+import { motion } from "framer-motion";
+
 const metalgradient = `
 linear-gradient(180deg, hsl(0,0%,78%)  0%, 
 hsl(0,0%,90%) 47%, 
@@ -32,8 +34,16 @@ export function OrderList() {
         </div>
       ) : null}
       <div className="flex flex-nowrap justify-end items-start px-4 gap-4 overflow-hidden max-w-full">
-        {orders.map((o) => (
-          <OrderTicket order={o} key={o.id} />
+        {orders.map((o, idx) => (
+          <motion.div
+            key={o.id}
+            animate={{ translateX: "0" }}
+            initial={{ translateX: "calc(100% + 1rem)" }}
+            transition={{ bounce: 0 }}
+            layout
+          >
+            <OrderTicket order={o} key={o.id} />
+          </motion.div>
         ))}
       </div>
     </>
