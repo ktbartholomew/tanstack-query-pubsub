@@ -1,12 +1,12 @@
 import EventEmitter from "events";
 
-type Item = {
+export type Item = {
   name: string;
   // options: string[];
   substitutions: string[];
 };
 
-type Order = {
+export type Order = {
   timestamp: Date;
   id: number;
   destination: "dining-room" | "takeout";
@@ -108,16 +108,36 @@ export class OrderService {
     const itemcount = getRandomInt(MIN_ORDER_ITEMS, MAX_ORDER_ITEMS);
 
     for (let i = 0; i < itemcount; i++) {
-      let itemIdx = getRandomInt(0, ITEMS.length - 1);
+      const itemIdx = getRandomInt(0, ITEMS.length - 1);
+      const item: Item = { ...ITEMS[itemIdx], substitutions: [] };
 
-      order.items.push({ ...ITEMS[itemIdx], substitutions: [] });
+      if (ITEMS[itemIdx].substitutions.length > 0) {
+        const substitutionCount = getRandomInt(
+          MIN_SUBSTITUTIONS,
+          Math.min(MAX_SUBSTITUTIONS, ITEMS[itemIdx].substitutions.length)
+        );
+
+        for (let j = 0; j < substitutionCount; j++) {
+          const subIdx = getRandomInt(
+            0,
+            ITEMS[itemIdx].substitutions.length - 1
+          );
+
+          if (
+            !item.substitutions.includes(ITEMS[itemIdx].substitutions[subIdx])
+          )
+            item.substitutions.push(ITEMS[itemIdx].substitutions[subIdx]);
+        }
+      }
+
+      order.items.push(item);
     }
 
     return order;
   }
 }
 
-function getRandomInt(min, max) {
+function getRandomInt(min: number, max: number): number {
   // Math.floor() rounds down to the nearest integer
   // Math.random() generates a random floating-point number between 0 (inclusive) and 1 (exclusive)
   // The expression (max - min + 1) ensures that the range is inclusive of both min and max

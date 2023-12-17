@@ -1,0 +1,13 @@
+.orderTicket {
+  --mask: conic-gradient(
+        from 135deg at top,
+        #0000,
+        #000 1deg 89deg,
+        #0000 90deg
+      )
+      top/8.00px 51% repeat-x,
+    conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg)
+      bottom/8.00px 51% repeat-x;
+  -webkit-mask: var(--mask);
+  mask: var(--mask);
+}
