@@ -5,10 +5,9 @@ import { startWebSocket } from "@/server/websocket";
 
 async function start() {
   const app = express();
-
-  // when using middleware `hostname` and `port` must be provided below
   const nextApp = next({ dev: process.env.NODE_ENV !== "production" });
   await nextApp.prepare();
+
   const nextHandler = nextApp.getRequestHandler();
   const nextHmr = nextApp.getUpgradeHandler();
 

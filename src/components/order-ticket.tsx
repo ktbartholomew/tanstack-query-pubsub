@@ -6,7 +6,7 @@ export function OrderTicket(props: { order: Order }) {
     <div
       className={`${classes.orderTicket}  shadow-lg  w-[30ch] grow-0 shrink-0`}
     >
-      <div className="bg-white p-4 text-xs font-mono">
+      <div className="bg-white p-4 text-xs text-black font-mono">
         <div className="text-center border-b border-dashed border-black mb-4">
           <div>
             <strong>Socket Burger</strong>

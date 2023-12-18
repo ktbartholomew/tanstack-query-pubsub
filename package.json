@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "npm run bundle && node dist/server.js",
-    "build": "next build",
+    "build": "npm run bundle && next build",
     "bundle": "esbuild server.ts --bundle --platform=node --outdir=dist --external:next*",
-    "start": "next start",
+    "start": "node dist/server.js",
     "lint": "next lint"
   },
   "dependencies": {
