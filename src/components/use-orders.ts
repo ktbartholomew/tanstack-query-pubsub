@@ -3,10 +3,12 @@ import { useEffect, useState } from "react";
 
 let ws: WebSocket;
 if (typeof window !== "undefined") {
-  ws = new WebSocket(`wss://${window.location.host}/api/ws`);
+  const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+
+  ws = new WebSocket(`${protocol}//${window.location.host}/api/ws`);
   setInterval(() => {
     if (ws.readyState !== ws.OPEN) {
-      ws = new WebSocket(`wss://${window.location.host}/api/ws`);
+      ws = new WebSocket(`${protocol}//${window.location.host}/api/ws`);
       return;
     }
 
